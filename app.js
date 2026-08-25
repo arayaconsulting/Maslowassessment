@@ -3,8 +3,8 @@
 // ==========================================
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzZnP0s0KngOwQ4WzpmDg09L_Uy0Ht_Bbs9lJCWw4Or2-I2lUZkBUgnj3pjsk_0mKPm/exec";
 
-// Daftar Kode Akses Cadangan (Fallback jika mode offline)
-const VALID_ACCESS_CODES = ["ARAYA2026", "MASLOWPASS", "PREMIUM88", "LEADERVIP", "ARAYA55"];
+// Daftar Kode Master Cadangan
+const VALID_ACCESS_CODES = ["ARAYA2026", "MASLOW88", "PREMIUM88", "LEADERVIP", "ARAYA55"];
 
 // Database 25 Butir Pernyataan
 const questions = [
@@ -59,6 +59,7 @@ let userAnswers = {};
 let respondentData = {};
 let calculatedScores = {};
 let dominantDimension = "";
+let currentTestId = "";
 let radarChartInstance = null;
 
 // STEP 1: MULAI ASESMEN DARI DATA DIRI
@@ -204,14 +205,23 @@ function processFinalResults() {
         }
     });
 
-    // Header Report
+    // Generate ID Asesmen
+    currentTestId = `MSL-${Date.now().toString().slice(-6)}`;
+
+    // Populate Header Report
     document.getElementById("rep-nama").innerText = respondentData.nama;
     document.getElementById("rep-posisi").innerText = respondentData.posisi;
     document.getElementById("rep-tanggal").innerText = respondentData.tanggal;
-    const testId = `MSL-${Date.now().toString().slice(-6)}`;
-    document.getElementById("rep-id").innerText = testId;
+    document.getElementById("rep-id").innerText = currentTestId;
 
-    // Table Score
+    // Update Link Tombol WhatsApp dengan Data Responden
+    const waText = encodeURIComponent(`Halo Admin Araya, saya ingin meminta Kode Akses untuk membuka Laporan Asesmen Maslow.\n\n*Nama:* ${respondentData.nama}\n*ID Asesmen:* ${currentTestId}\n*No. WA:* ${respondentData.whatsapp}`);
+    const waUrl = `https://wa.me/6285232526003?text=${waText}`;
+    
+    document.getElementById("link-minta-kode").href = waUrl;
+    document.getElementById("floating-wa-btn").href = waUrl;
+
+    // Populate Table Score
     const tbody = document.getElementById("report-table-body");
     tbody.innerHTML = "";
     metaLevels.forEach(lvl => {
@@ -241,23 +251,23 @@ function processFinalResults() {
     };
     document.getElementById("rep-primary-driver").innerText = driverTitles[dominantDimension];
 
-    // Narasi & Action Plan
+    // Build Detailed Narrative (Minimal 5 Kalimat) & Action Insights
     buildDetailedNarrative(calculatedScores, dominantDimension);
     buildDetailedActions(dominantDimension);
 
     // Kunci Konten Default (Paywall)
     lockFullReport();
 
-    // View Report
+    // Tampilkan Halaman Hasil
     document.getElementById("step-quiz").classList.add("hidden");
     document.getElementById("step-result").classList.remove("hidden");
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     renderRadarChart(calculatedScores);
 
-    // Kirim Data Lengkap ke Google Apps Script
+    // Kirim Data Lengkap ke Google Apps Script Spreadsheet
     sendDataToSpreadsheet({
-        testId: testId,
+        testId: currentTestId,
         nama: respondentData.nama,
         posisi: respondentData.posisi,
         whatsapp: respondentData.whatsapp,
@@ -271,7 +281,7 @@ function processFinalResults() {
     });
 }
 
-// INTERPRETASI MINIMAL 5 KALIMAT TERSTRUKTUR
+// GENERATOR INTERPRETASI MINIMAL 5 KALIMAT TERSTRUKTUR
 function buildDetailedNarrative(scores, domKey) {
     const k1 = `Berdasarkan profil diagnostik kebutuhan Maslow, dorongan motivasi harian Anda saat ini paling dominan digerakkan oleh ${driverTitlesMapping(domKey)}, yang menjadi pusat perhatian mental dan alokasi energi kerja Anda sehari-hari.`;
     
@@ -335,30 +345,30 @@ function buildDetailedActions(domKey) {
     document.getElementById("rep-leader-actions").innerHTML = leaderMap[domKey].map(a => `<li>${a}</li>`).join("");
 }
 
-// PAYWALL & UNLOCK
+// SISTEM PAYWALL & KODE AKSES
 function lockFullReport() {
     document.getElementById("full-report-content").classList.add("locked-content");
     document.getElementById("btn-download-pdf").disabled = true;
     document.getElementById("btn-download-pdf").innerHTML = `<i class="fa-solid fa-lock"></i> Laporan Terkunci (Masukkan Kode)`;
 }
 
-// VALIDASI DUA ARAH KE GOOGLE APPS SCRIPT
+// VALIDASI KODE AKTIVASI DUA ARAH
 async function validateAccessCode() {
     const inputCode = document.getElementById("input-access-code").value.trim().toUpperCase();
     if (!inputCode) {
-        alert("Silakan masukkan kode akses terlebih dahulu.");
+        alert("Silakan ketik kode akses terlebih dahulu.");
         return;
     }
 
     const btnUnlock = document.querySelector(".btn-unlock");
-    const originalText = btnUnlock.innerText;
+    const originalText = btnUnlock.innerHTML;
     btnUnlock.disabled = true;
-    btnUnlock.innerText = "Memeriksa...";
+    btnUnlock.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Memeriksa...`;
 
     // 1. Cek Online ke Google Apps Script Spreadsheet
     if (GOOGLE_SCRIPT_URL) {
         try {
-            const checkUrl = `${GOOGLE_SCRIPT_URL}?action=checkCode&code=${encodeURIComponent(inputCode)}&nama=${encodeURIComponent(respondentData.nama || 'Peserta')}`;
+            const checkUrl = `${GOOGLE_SCRIPT_URL}?action=checkCode&code=${encodeURIComponent(inputCode)}&nama=${encodeURIComponent(respondentData.nama || 'Peserta')}&whatsapp=${encodeURIComponent(respondentData.whatsapp || '')}&testId=${encodeURIComponent(currentTestId || '')}`;
             const response = await fetch(checkUrl);
             const result = await response.json();
 
@@ -369,7 +379,7 @@ async function validateAccessCode() {
             } else {
                 alert(result.message || "Kode akses tidak valid atau sudah pernah digunakan.");
                 btnUnlock.disabled = false;
-                btnUnlock.innerText = originalText;
+                btnUnlock.innerHTML = originalText;
                 return;
             }
         } catch (err) {
@@ -377,14 +387,14 @@ async function validateAccessCode() {
         }
     }
 
-    // 2. Fallback Verifikasi Kode Cadangan jika Offline
+    // 2. Fallback Verifikasi Kode Cadangan Master jika Offline
     if (VALID_ACCESS_CODES.includes(inputCode)) {
         unlockReportSuccess();
         alert("Kode Akses Valid! Laporan lengkap berhasil dibuka.");
     } else {
         alert("Kode Akses tidak valid atau tidak ditemukan. Silakan hubungi Admin via WhatsApp (0852-3252-6003).");
         btnUnlock.disabled = false;
-        btnUnlock.innerText = originalText;
+        btnUnlock.innerHTML = originalText;
     }
 }
 
@@ -397,7 +407,7 @@ function unlockReportSuccess() {
     btnPdf.innerHTML = `<i class="fa-solid fa-file-pdf"></i> Unduh / Cetak Laporan PDF Resmi`;
 }
 
-// RADAR CHART
+// RADAR CHART MASLOW
 function renderRadarChart(scores) {
     const ctx = document.getElementById('maslowRadarChart').getContext('2d');
     if (radarChartInstance) {
@@ -435,17 +445,17 @@ function renderRadarChart(scores) {
     });
 }
 
-// KIRIM DATA KE GOOGLE SPREADSHEET
+// SINKRONISASI DATA KE GOOGLE SPREADSHEET
 function sendDataToSpreadsheet(payload) {
     if (!GOOGLE_SCRIPT_URL) return;
 
     fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(payload)
     }).then(() => {
-        console.log("Data berhasil disinkronkan ke Google Spreadsheet.");
+        console.log("Data berhasil dikirim ke Google Spreadsheet.");
     }).catch(err => {
         console.error("Gagal sinkron data ke Spreadsheet:", err);
     });
