@@ -1,0 +1,369 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #2c3e50;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* BRANDING & LOGO */
+.brand-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.brand-box {
+    display: flex;
+    align-items: center;
+}
+
+.brand-left {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.brand-right {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.brand-logo {
+    max-height: 60px;
+    max-width: 190px;
+    object-fit: contain;
+}
+
+.brand-logo-report {
+    max-height: 50px;
+    max-width: 170px;
+    object-fit: contain;
+}
+
+.logo-fallback {
+    display: none;
+}
+
+.logo-fallback h2, .logo-fallback h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.brand-left .logo-fallback h2, .brand-left .logo-fallback h3 {
+    color: #1e3a8a;
+}
+
+.brand-right .logo-fallback h2, .brand-right .logo-fallback h3 {
+    color: #b91c1c;
+}
+
+.logo-fallback p, .logo-fallback small {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+/* HEADER FORM */
+.assessment-header {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.header-divider {
+    height: 3px;
+    background: linear-gradient(to right, #1e3a8a, #b91c1c);
+    margin: 15px 0;
+}
+
+.assessment-header h1 {
+    font-size: 1.45rem;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: #64748b;
+}
+
+/* FORM CARD */
+.card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.instruction-box {
+    background: #eff6ff;
+    border-left: 4px solid #1e3a8a;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.scale-legend {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: #334155;
+}
+
+/* QUESTIONNAIRE ITEMS */
+.question-item {
+    background: #ffffff;
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.question-text {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1e293b;
+}
+
+.options-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.option-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    background: #f8fafc;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    flex: 1;
+    justify-content: center;
+}
+
+.option-label:hover {
+    background: #f1f5f9;
+}
+
+/* BUTTONS */
+#btn-submit, .btn-print, .btn-restart {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: #1e3a8a;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 20px;
+}
+
+#btn-submit:hover, .btn-print:hover {
+    background: #1d4ed8;
+}
+
+.btn-restart {
+    background: #64748b;
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* REPORT SECTION */
+.report-container {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.report-divider {
+    border: none;
+    border-top: 1.5px solid #cbd5e1;
+    margin: 15px 0;
+}
+
+.report-title {
+    text-align: center;
+    font-size: 1.35rem;
+    color: #0f172a;
+    margin: 15px 0;
+    letter-spacing: 0.5px;
+}
+
+.respondent-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    background: #f8fafc;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    border: 1px solid #e2e8f0;
+}
+
+.score-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0 20px 0;
+    font-size: 0.9rem;
+}
+
+.score-table th, .score-table td {
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.score-table th {
+    background: #f1f5f9;
+    font-weight: 700;
+    color: #334155;
+}
+
+.chart-wrapper {
+    max-width: 480px;
+    margin: 10px auto 25px auto;
+}
+
+.core-driver-box {
+    background: #fef2f2;
+    border-left: 4px solid #b91c1c;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.core-driver-box span {
+    color: #b91c1c;
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.interpretation-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 18px 20px;
+    border-radius: 8px;
+    line-height: 1.8;
+    font-size: 0.93rem;
+    color: #1e293b;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.action-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 15px 18px;
+    border-radius: 8px;
+}
+
+.action-card h5 {
+    font-size: 0.92rem;
+    margin-bottom: 10px;
+    color: #1e3a8a;
+}
+
+.action-card ul {
+    padding-left: 18px;
+    font-size: 0.85rem;
+    color: #334155;
+}
+
+.action-card li {
+    margin-bottom: 6px;
+}
+
+.report-footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 12px;
+}
+
+/* PRINT & RESPONSIVE */
+@media print {
+    body {
+        background: #ffffff;
+        padding: 0;
+    }
+    .no-print, #form-section, .assessment-header {
+        display: none !important;
+    }
+    .report-container {
+        box-shadow: none;
+        padding: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .form-grid, .respondent-meta, .action-grid {
+        grid-template-columns: 1fr;
+    }
+    .options-row {
+        flex-direction: column;
+        gap: 6px;
+    }
+    .brand-logo, .brand-logo-report {
+        max-height: 42px;
+        max-width: 130px;
+    }
+}
