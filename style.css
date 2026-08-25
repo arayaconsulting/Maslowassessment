@@ -62,7 +62,7 @@ body {
     display: none;
 }
 
-/* APP HEADER (SLATE CHARCOAL DARK) */
+/* APP HEADER */
 .app-header {
     background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
     color: #ffffff;
@@ -80,52 +80,56 @@ body {
     align-items: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     padding-bottom: 14px;
-    gap: 10px;
+    gap: 12px;
     width: 100%;
 }
 
 .brand-box {
     display: flex;
     align-items: center;
-    flex: 1;
-    max-width: 48%;
 }
 
 .brand-left {
     justify-content: flex-start;
+    flex: 1.2;
 }
 
+/* CONTAINER KHUSUS LOGO KANAN AGAR JELAS & MENYALA */
 .brand-right {
     justify-content: flex-end;
+    flex: 1;
 }
 
 .brand-logo {
-    max-height: 48px;
+    max-height: 55px;
     max-width: 100%;
     width: auto;
     object-fit: contain;
 }
 
+/* LOGO KANAN DIPERBESAR & DIBERI LATAR TERANG AGAR SANGAT KONTRAS */
+.brand-right .brand-logo {
+    max-height: 52px;
+    background: #ffffff;
+    padding: 4px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
 .brand-logo-rep {
-    max-height: 42px;
+    max-height: 46px;
     max-width: 100%;
     object-fit: contain;
 }
 
-/* Sembunyikan teks fallback saat gambar aktif */
+.brand-right .brand-logo-rep {
+    background: #ffffff;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
 .logo-fallback-text {
     display: none;
-}
-
-.logo-fallback-text.light h3, .logo-fallback-text.light h4 {
-    color: #ffffff;
-    font-weight: 800;
-    font-size: 0.95rem;
-}
-
-.logo-fallback-text.light span, .logo-fallback-text.light small {
-    color: #94a3b8;
-    font-size: 0.7rem;
 }
 
 .header-title-area {
@@ -264,7 +268,7 @@ body {
     border-left: 3px solid var(--accent-blue);
 }
 
-/* QUESTION CARD & MOBILE PILL BUTTONS */
+/* QUESTION CARD */
 .quiz-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
@@ -451,7 +455,6 @@ body {
     width: 100%;
 }
 
-/* HEADER LEMBAR LAPORAN HASIL (SLATE CHARCOAL DARK) */
 .report-header-dark {
     background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
     padding: 16px;
@@ -613,8 +616,9 @@ body {
 /* LAYAR TABLET / LAPTOP (MIN-WIDTH 640PX) */
 @media (min-width: 640px) {
     body { padding: 20px; }
-    .brand-logo { max-height: 55px; }
-    .brand-logo-rep { max-height: 48px; }
+    .brand-logo { max-height: 60px; }
+    .brand-right .brand-logo { max-height: 56px; padding: 5px 12px; }
+    .brand-logo-rep { max-height: 50px; }
     .header-title-area h1 { font-size: 1.5rem; }
     .card-step { padding: 30px; }
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; }
