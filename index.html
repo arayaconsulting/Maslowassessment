@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maslow Need & Motivation Assessment</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER HALAMAN DEPAN -->
+        <header class="assessment-header">
+            <div class="brand-row">
+                <div class="brand-box brand-left">
+                    <img src="logo-araya.png" alt="Araya Consulting" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="logo-fallback">
+                        <h2>ARAYA CONSULTING</h2>
+                        <p>Business & Organization Support</p>
+                    </div>
+                </div>
+                <div class="brand-box brand-right">
+                    <img src="logo-alimahfud.png" alt="Ali Mahfud People Development" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="logo-fallback">
+                        <h2>ALI MAHFUD</h2>
+                        <p>People Development</p>
+                    </div>
+                </div>
+            </div>
+            <div class="header-divider"></div>
+            <h1>MASLOW NEED & MOTIVATION ASSESSMENT</h1>
+            <p class="subtitle">Pemetaan Dinamika Kebutuhan & Motivasi Diri Berbasis Hierarki Maslow</p>
+        </header>
+
+        <!-- FORM KUESIONER -->
+        <section id="form-section">
+            <div class="card user-info-card">
+                <h3>Data Responden</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" placeholder="Masukkan nama lengkap Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="posisi">Peran / Posisi / Organisasi</label>
+                        <input type="text" id="posisi" placeholder="Contoh: Supervisor, Staff, Entrepreneur">
+                    </div>
+                </div>
+            </div>
+
+            <div class="instruction-box">
+                <h4>Petunjuk Pengisian:</h4>
+                <p>Pilihlah salah satu opsi jawaban yang paling menggambarkan kondisi dan dorongan diri Anda saat ini secara objektif.</p>
+                <div class="scale-legend">
+                    <span><b>5:</b> Sangat Setuju (SS)</span> |
+                    <span><b>4:</b> Setuju (S)</span> |
+                    <span><b>3:</b> Netral (N)</span> |
+                    <span><b>2:</b> Tidak Setuju (TS)</span> |
+                    <span><b>1:</b> Sangat Tidak Setuju (STS)</span>
+                </div>
+            </div>
+
+            <form id="quiz-form">
+                <div id="questions-list"></div>
+                <button type="button" id="btn-submit" onclick="calculateResult()">Lihat & Cetak Hasil Profil</button>
+            </form>
+        </section>
+
+        <!-- HALAMAN LAPORAN HASIL (REPORT) -->
+        <section id="result-section" class="hidden">
+            <div class="report-container" id="printable-report">
+                <div class="report-header">
+                    <div class="brand-row">
+                        <div class="brand-box brand-left">
+                            <img src="logo-araya.png" alt="Araya Consulting" class="brand-logo-report" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="logo-fallback">
+                                <h3>ARAYA CONSULTING</h3>
+                                <small>Business & People Assessment System</small>
+                            </div>
+                        </div>
+                        <div class="brand-box brand-right">
+                            <img src="logo-alimahfud.png" alt="Ali Mahfud People Development" class="brand-logo-report" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="logo-fallback">
+                                <h3>ALI MAHFUD</h3>
+                                <small>People Development Tool</small>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="report-divider">
+                    <h2 class="report-title">NEED & MOTIVATION PROFILE REPORT</h2>
+                    
+                    <div class="respondent-meta">
+                        <div><b>Nama:</b> <span id="res-nama">-</span></div>
+                        <div><b>Posisi:</b> <span id="res-posisi">-</span></div>
+                        <div><b>Tanggal Asesmen:</b> <span id="res-tanggal">-</span></div>
+                        <div><b>ID Asesmen:</b> <span id="res-id">-</span></div>
+                    </div>
+                </div>
+
+                <div class="report-body">
+                    <h4>1. Profil Tingkat Kebutuhan (Diagnostic Score)</h4>
+                    <table class="score-table">
+                        <thead>
+                            <tr>
+                                <th>Dimensi Hierarki Maslow</th>
+                                <th>Skor (5–25)</th>
+                                <th>Persentase</th>
+                                <th>Status Prioritas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="score-table-body"></tbody>
+                    </table>
+
+                    <div class="chart-wrapper">
+                        <canvas id="maslowChart"></canvas>
+                    </div>
+
+                    <div class="core-driver-box">
+                        <p><strong>Primary Core Driver (Kebutuhan Utama Saat Ini):</strong> <br><span id="primary-driver-text"></span></p>
+                    </div>
+
+                    <h4>2. Interpretasi & Analisis Dinamika (Comprehensive Diagnostic)</h4>
+                    <div class="interpretation-box">
+                        <p id="interpretation-text"></p>
+                    </div>
+
+                    <h4>3. Panduan Pengembangan (Actionable Insights)</h4>
+                    <div class="action-grid">
+                        <div class="action-card">
+                            <h5>Rekomendasi Tindak Lanjut Mandiri</h5>
+                            <ul id="self-actions"></ul>
+                        </div>
+                        <div class="action-card">
+                            <h5>Panduan untuk Leader / Fasilitator</h5>
+                            <ul id="leader-actions"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-footer">
+                    <p>Laporan ini diterbitkan secara otomatis oleh Araya Consulting Assessment Engine & Ali Mahfud People Development.</p>
+                </div>
+            </div>
+
+            <div class="action-buttons no-print">
+                <button onclick="window.print()" class="btn-print">Cetak Laporan / Simpan PDF</button>
+                <button onclick="restartTest()" class="btn-restart">Isi Ulang Asesmen</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
