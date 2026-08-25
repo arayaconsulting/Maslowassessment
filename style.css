@@ -62,15 +62,16 @@ body {
     display: none;
 }
 
-/* APP HEADER (DARK THEME) */
+/* APP HEADER (SLATE CHARCOAL DARK) */
 .app-header {
-    background: linear-gradient(135deg, #090d16 0%, #172554 100%);
+    background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
     color: #ffffff;
     padding: 20px 16px;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
     margin-bottom: 16px;
     width: 100%;
+    border: 1px solid #3f3f46;
 }
 
 .header-inner {
@@ -450,10 +451,12 @@ body {
     width: 100%;
 }
 
+/* HEADER LEMBAR LAPORAN HASIL (SLATE CHARCOAL DARK) */
 .report-header-dark {
-    background: linear-gradient(135deg, #090d16 0%, #172554 100%);
+    background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
     padding: 16px;
     color: #fff;
+    border-bottom: 2px solid #3f3f46;
 }
 
 .report-header-title {
