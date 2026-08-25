@@ -16,7 +16,7 @@
 <body>
 
     <!-- FLOATING WHATSAPP BUTTON (085232526003) -->
-    <a href="https://wa.me/6285232526003?text=Halo%20Admin%20Araya%20Consulting,%20saya%20ingin%20meminta%20Kode%20Akses%20Laporan%20Asesmen%20Maslow." class="floating-wa" target="_blank" title="Hubungi Admin / Minta Kode Akses">
+    <a href="https://wa.me/6285232526003" id="floating-wa-btn" class="floating-wa" target="_blank" title="Hubungi Admin">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -104,15 +104,26 @@
                 
                 <!-- UNLOCK MODAL / ACCESS CODE BOX -->
                 <div id="lock-banner" class="paywall-banner">
-                    <div class="paywall-icon"><i class="fa-solid fa-lock"></i></div>
-                    <div class="paywall-content">
-                        <h3>Laporan Lengkap Terkunci</h3>
-                        <p>Masukkan <strong>Kode Akses Premium</strong> untuk membuka seluruh interpretasi mendalam, rekomendasi pimpinan, dan unduh laporan PDF resmi.</p>
-                        <div class="access-code-group">
-                            <input type="text" id="input-access-code" placeholder="Masukkan Kode Akses">
-                            <button type="button" class="btn-unlock" onclick="validateAccessCode()">Buka Laporan</button>
+                    <div class="paywall-header-group">
+                        <div class="paywall-icon"><i class="fa-solid fa-lock"></i></div>
+                        <div>
+                            <h3>Laporan Lengkap Terkunci</h3>
+                            <p>Masukkan <strong>Kode Akses Premium</strong> untuk membuka seluruh interpretasi mendalam, rekomendasi pimpinan, dan unduh laporan PDF resmi.</p>
                         </div>
-                        <p class="paywall-help">Belum punya kode? <a href="https://wa.me/6285232526003?text=Halo%20Admin%20Araya,%20saya%20ingin%20membeli%20Kode%20Akses%20Laporan%20Maslow." target="_blank"><i class="fa-brands fa-whatsapp"></i> Hubungi Admin via WhatsApp (0852-3252-6003)</a></p>
+                    </div>
+                    
+                    <div class="access-code-group">
+                        <input type="text" id="input-access-code" placeholder="MASUKKAN KODE AKSES">
+                        <button type="button" class="btn-unlock" onclick="validateAccessCode()">
+                            <i class="fa-solid fa-key"></i> Buka Laporan
+                        </button>
+                    </div>
+                    
+                    <div class="wa-action-box">
+                        <span class="wa-prompt-text">Belum memiliki kode akses aktivasi?</span>
+                        <a href="https://wa.me/6285232526003" id="link-minta-kode" target="_blank" class="btn-wa-order">
+                            <i class="fa-brands fa-whatsapp"></i> Klik di Sini untuk Minta Kode Akses
+                        </a>
                     </div>
                 </div>
 
