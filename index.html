@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Maslow Need & Motivation Assessment - Araya Consulting</title>
+    <title>Maslow Motivation Diagnostic - Araya Consulting</title>
     
-    <!-- Core Libraries Sesuai Standar App Araya -->
+    <!-- Core Libraries Sesuai Standar Araya -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -13,7 +13,7 @@
     
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -34,9 +34,9 @@
     <!-- APLIKASI UTAMA (MOBILE & DESKTOP ADAPTIVE) -->
     <div id="app-container" class="max-w-xl mx-auto min-h-screen flex flex-col p-4 sm:p-6 no-print">
         
-        <!-- HEADER BRANDING ELEGAN -->
-        <header class="app-header text-center py-6 px-4 mb-6 rounded-2xl shadow-lg border border-slate-700">
-            <div class="flex justify-between items-center pb-4 border-b border-white/10 gap-3">
+        <!-- HEADER BRANDING GELAP ELEGAN -->
+        <header class="app-header text-center py-5 px-4 mb-6 rounded-2xl shadow-lg border border-slate-700">
+            <div class="flex justify-between items-center pb-3 border-b border-white/10 gap-3">
                 <div class="flex items-center">
                     <img src="logo-araya.png" alt="Araya Consulting" class="h-10 sm:h-12 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="hidden text-left text-white">
@@ -51,14 +51,14 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-4">
+            <div class="mt-3">
                 <span class="inline-block bg-blue-600/30 border border-blue-400/40 text-blue-200 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-2">Human Motivation Diagnostic</span>
-                <h1 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight uppercase">Maslow Need & Motivation</h1>
-                <p class="text-xs text-slate-300 mt-1">Pemetaan Dinamika Kebutuhan & Dorongan Diri</p>
+                <h1 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight uppercase">Maslow Motivation Assessment</h1>
+                <p class="text-xs text-slate-300 mt-1">Pemetaan Dinamika Motivasi Berdasarkan Instrumen Maslow</p>
             </div>
         </header>
 
-        <!-- STEP 1: REGISTRASI DATA DIRI -->
+        <!-- STEP 1: DATA DIRI -->
         <section id="step-identity" class="card shadow-md">
             <h2 class="text-lg font-bold mb-4 text-slate-800 border-l-4 border-blue-900 pl-3">Data Diri Responden</h2>
             <div class="space-y-4">
@@ -67,7 +67,7 @@
                     <input type="text" id="nama" class="input-field" placeholder="Masukkan nama lengkap Anda" required>
                 </div>
                 <div>
-                    <label for="posisi" class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Peran / Posisi / Organisasi</label>
+                    <label for="posisi" class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Peran / Jabatan / Organisasi</label>
                     <input type="text" id="posisi" class="input-field" placeholder="Contoh: Supervisor, Staff, Entrepreneur">
                 </div>
                 <div>
@@ -80,18 +80,14 @@
             </div>
         </section>
 
-        <!-- STEP 2: QUIZ WIZARD (5 HALAMAN X 5 SOAL) -->
+        <!-- STEP 2: QUIZ WIZARD (15 SOAL ASLI EXCEL, 3 SOAL PER HALAMAN) -->
         <section id="step-quiz" class="card shadow-md hidden">
-            <div class="flex justify-between items-center mb-4">
+            <div class="flex justify-between items-center mb-3">
                 <span id="step-indicator" class="text-xs font-bold text-blue-900 uppercase tracking-wider">Bagian 1 / 5</span>
                 <span id="percent-indicator" class="text-xs font-bold text-slate-400">20%</span>
             </div>
             <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden mb-5">
                 <div id="progress-fill" class="h-full bg-blue-900 transition-all duration-300" style="width: 20%"></div>
-            </div>
-            
-            <div id="dimension-title" class="text-xs font-bold bg-blue-50 text-blue-800 py-1.5 px-3 rounded-lg border-l-4 border-blue-600 mb-4">
-                Level 1: Kebutuhan Fisiologis
             </div>
 
             <div id="quiz-page-container" class="space-y-4"></div>
@@ -128,7 +124,7 @@
             </a>
         </section>
 
-        <!-- STEP 4: FINAL SUCCESS RESULT & DIRECT PDF DOWNLOAD -->
+        <!-- STEP 4: DOWNLOAD RESMI PDF -->
         <section id="step-final" class="card shadow-md hidden text-center">
             <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
                 <i class="fa-solid fa-circle-check text-3xl"></i>
@@ -158,23 +154,28 @@
                     
                     <div class="relative z-10 flex flex-col h-full justify-between">
                         
-                        <!-- Header Dokumen -->
-                        <div class="flex justify-between items-center pb-3 border-b-2 border-slate-800">
+                        <!-- HEADER GELAP KHUSUS DOKUMEN (AGAR TEKS PUTIH ARAYA TERLIHAT JELAS) -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-white flex justify-between items-center shadow-sm">
                             <div class="flex items-center gap-3">
-                                <img src="logo-araya.png" crossorigin="anonymous" alt="Araya Logo" class="h-10 object-contain">
+                                <img src="logo-araya.png" crossorigin="anonymous" alt="Araya Logo" class="h-11 object-contain" onerror="this.style.display='none'">
                                 <div>
-                                    <h4 class="font-extrabold text-blue-900 text-xs tracking-wider uppercase m-0 leading-tight">Araya Consulting</h4>
-                                    <span class="text-[8pt] text-slate-500 font-semibold">Business & Organization Diagnostic</span>
+                                    <h4 class="font-extrabold text-white text-xs tracking-wider uppercase m-0 leading-tight">ARAYA CONSULTING</h4>
+                                    <span class="text-[7.5pt] text-slate-300 font-semibold block">Business & Organization Diagnostic</span>
                                 </div>
                             </div>
-                            <div class="text-right">
-                                <h1 class="font-serif text-lg font-bold text-blue-950 uppercase m-0 leading-tight">Diagnostic Report</h1>
-                                <p class="text-amber-700 font-bold text-[8pt] tracking-wider uppercase m-0">Maslow Need & Motivation Spectrum</p>
+                            <div class="flex items-center gap-3">
+                                <div class="text-right">
+                                    <h1 class="font-serif text-sm font-bold text-white uppercase m-0 leading-tight">Diagnostic Report</h1>
+                                    <p class="text-amber-400 font-bold text-[7.5pt] tracking-wider uppercase m-0">Maslow Motivation Spectrum</p>
+                                </div>
+                                <div class="bg-white p-1 rounded-lg">
+                                    <img src="logo-alimahfud.png" crossorigin="anonymous" alt="Ali Mahfud" class="h-8 object-contain" onerror="this.style.display='none'">
+                                </div>
                             </div>
                         </div>
 
                         <!-- Info Responden Grid -->
-                        <div class="grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-[8.5pt] my-2">
+                        <div class="grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-[8pt] my-2">
                             <div><span class="text-slate-500">Nama Responden:</span> <strong id="pdf-nama" class="text-blue-950 uppercase font-bold">-</strong></div>
                             <div><span class="text-slate-500">Peran / Organisasi:</span> <strong id="pdf-posisi" class="text-blue-950 uppercase font-bold">-</strong></div>
                             <div><span class="text-slate-500">Nomor Registrasi:</span> <strong id="pdf-id" class="font-mono text-slate-800">-</strong></div>
@@ -184,7 +185,7 @@
                         <!-- Dominant Result Highlight -->
                         <div class="bg-blue-950 text-white p-3 rounded-lg flex justify-between items-center shadow-sm">
                             <div>
-                                <span class="text-amber-400 text-[7.5pt] uppercase font-bold tracking-wider">Kebutuhan Penggerak Utama (Core Driver):</span>
+                                <span class="text-amber-400 text-[7pt] uppercase font-bold tracking-wider">Kebutuhan Penggerak Utama Saat Ini:</span>
                                 <h3 id="pdf-dominant-title" class="text-base font-extrabold text-white tracking-wide uppercase m-0 mt-0.5"></h3>
                             </div>
                             <div class="text-right max-w-[280px]">
@@ -195,13 +196,13 @@
                         <!-- Score Table & Radar Chart Grid -->
                         <div class="grid grid-cols-12 gap-3 my-2 items-center">
                             <div class="col-span-7">
-                                <h4 class="text-[8.5pt] font-bold text-blue-950 uppercase border-b border-slate-200 pb-1 mb-1.5">1. Matriks Skor Hierarki</h4>
+                                <h4 class="text-[8pt] font-bold text-blue-950 uppercase border-b border-slate-200 pb-1 mb-1.5">1. Matriks Skor Hierarki Maslow</h4>
                                 <table class="w-full text-[7.5pt] border-collapse">
                                     <thead>
                                         <tr class="bg-slate-100 text-slate-700">
                                             <th class="p-1 border border-slate-200 text-left">Level Kebutuhan</th>
+                                            <th class="p-1 border border-slate-200 text-center">Soal</th>
                                             <th class="p-1 border border-slate-200 text-center">Skor</th>
-                                            <th class="p-1 border border-slate-200 text-center">%</th>
                                             <th class="p-1 border border-slate-200 text-left">Prioritas</th>
                                         </tr>
                                     </thead>
@@ -217,15 +218,15 @@
 
                         <!-- Detailed Interpretation -->
                         <div class="my-1">
-                            <h4 class="text-[8.5pt] font-bold text-blue-950 uppercase border-b border-slate-200 pb-1 mb-1">2. Analisis Dinamika & Driver Motivasi</h4>
-                            <div id="pdf-narrative" class="text-[8pt] text-slate-700 leading-relaxed text-justify bg-slate-50/50 p-2 rounded border border-slate-100"></div>
+                            <h4 class="text-[8pt] font-bold text-blue-950 uppercase border-b border-slate-200 pb-1 mb-1">2. Analisis Dinamika & Driver Motivasi</h4>
+                            <div id="pdf-narrative" class="text-[7.8pt] text-slate-700 leading-relaxed text-justify bg-slate-50/50 p-2 rounded border border-slate-100"></div>
                         </div>
 
                         <!-- Action Plan & Signature Section -->
                         <div class="grid grid-cols-12 gap-3 items-end pt-1 border-t border-slate-200">
                             <div class="col-span-8">
-                                <h4 class="text-[8.5pt] font-bold text-blue-950 uppercase mb-1">3. Panduan Aksi Strategis</h4>
-                                <div class="grid grid-cols-2 gap-2 text-[7.5pt]">
+                                <h4 class="text-[8pt] font-bold text-blue-950 uppercase mb-1">3. Panduan Aksi Strategis</h4>
+                                <div class="grid grid-cols-2 gap-2 text-[7.2pt]">
                                     <div class="bg-slate-50 p-2 rounded border border-slate-100">
                                         <strong class="text-blue-900 block mb-1">Rekomendasi Mandiri:</strong>
                                         <ul id="pdf-self-actions" class="list-disc pl-3 text-slate-600 space-y-0.5"></ul>
@@ -237,16 +238,16 @@
                                 </div>
                             </div>
                             
-                            <!-- Signature Ali Mahfud Sesuai Standar -->
+                            <!-- Signature Ali Mahfud Proporsional -->
                             <div class="col-span-4 flex flex-col items-center justify-end text-center pb-1">
                                 <img src="ttd.png" crossorigin="anonymous" alt="Tanda Tangan" class="h-16 object-contain -mb-2 relative z-10" onerror="this.style.display='none'">
                                 <div class="w-36 h-[1.5px] bg-blue-950 mb-1"></div>
-                                <p class="font-extrabold text-[9pt] text-blue-950 uppercase tracking-wide m-0 leading-tight">Ali Mahfud</p>
-                                <p class="text-[7pt] text-slate-500 font-semibold uppercase tracking-wider m-0">People Development Expert</p>
+                                <p class="font-extrabold text-[8.5pt] text-blue-950 uppercase tracking-wide m-0 leading-tight">Ali Mahfud</p>
+                                <p class="text-[6.8pt] text-slate-500 font-semibold uppercase tracking-wider m-0">Founder Araya Consulting</p>
                             </div>
                         </div>
 
-                        <!-- Certificate Footer Metadata -->
+                        <!-- Footer Metadata -->
                         <div class="flex justify-between text-[6.5pt] text-slate-400 font-mono border-t border-slate-100 pt-1 mt-1">
                             <span>VERIFIED AUTHENTIC REPORT ID: <span id="pdf-footer-id"></span></span>
                             <span>ARAYA CONSULTING ENGINE © 2026</span>
