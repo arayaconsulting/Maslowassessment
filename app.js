@@ -1,62 +1,35 @@
 // ==========================================
-// KONFIGURASI SPREADSHEET & ACCESS CODE
+// KONFIGURASI SPREADSHEET & MASTER PASSCODE
 // ==========================================
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzZnP0s0KngOwQ4WzpmDg09L_Uy0Ht_Bbs9lJCWw4Or2-I2lUZkBUgnj3pjsk_0mKPm/exec";
 const MASTER_PASSCODES = ["ARAYA2026", "MASLOW88", "PREMIUM88", "LEADERVIP", "ARAYA55"];
 
-// 25 Butir Pernyataan Maslow
+// 15 BUTIR PERNYATAAN ASLI SESUAI FILE EXCEL
 const questions = [
-    // Level 1: Fisiologis (1-5)
-    { id: 1, level: "physio", text: "Saat ini, pemenuhan kebutuhan finansial dan fisik dasar adalah prioritas utama yang paling memotivasi saya bekerja/beraktivitas." },
-    { id: 2, level: "physio", text: "Kondisi fisik yang prima dan fasilitas kerja yang nyaman sangat menentukan tingkat semangat harian saya." },
-    { id: 3, level: "physio", text: "Kompensasi materi atau imbalan nyata adalah faktor terkuat yang membuat saya bersedia mengerahkan usaha ekstra." },
-    { id: 4, level: "physio", text: "Jam istirahat, beban fisik yang seimbang, dan kelayakan tempat kerja lebih saya perhatikan dibanding status atau pujian." },
-    { id: 5, level: "physio", text: "Saya merasa sulit fokus berkarya jika kebutuhan dasar dan sarana harian saya belum terpenuhi dengan layak." },
-    
-    // Level 2: Rasa Aman (6-10)
-    { id: 6, level: "safety", text: "Kejelasan aturan, regulasi, dan kepastian jangka panjang membuat saya merasa tenang dan produktif." },
-    { id: 7, level: "safety", text: "Saya lebih termotivasi dalam lingkungan yang stabil dan terstruktur dibanding lingkungan yang penuh ketidakpastian/risiko tinggi." },
-    { id: 8, level: "safety", text: "Jaminan perlindungan (seperti tabungan aman, kepastian posisi, atau asuransi/tunjangan) memberi saya dorongan motivasi yang besar." },
-    { id: 9, level: "safety", text: "Menghindari kesalahan dan menjaga keamanan posisi/kelangsungan kerja menjadi perhatian utama saya sehari-hari." },
-    { id: 10, level: "safety", text: "Arahan atasan/SOP yang jelas dan transparan membuat saya bekerja jauh lebih efektif tanpa rasa cemas." },
-
-    // Level 3: Sosial & Relasi (11-15)
-    { id: 11, level: "social", text: "Diterima dan memiliki hubungan akrab dengan rekan kerja/komunitas membuat saya jauh lebih bersemangat dalam beraktivitas." },
-    { id: 12, level: "social", text: "Suasana kekeluargaan dan saling mendukung dalam tim lebih berharga bagi saya daripada pencapaian yang diraih sendirian." },
-    { id: 13, level: "social", text: "Saya termotivasi untuk berkontribusi lebih jika dilibatkan dalam kegiatan kebersamaan atau proyek kelompok." },
-    { id: 14, level: "social", text: "Terjadinya konflik relasi atau suasana dingin di lingkungan kerja sangat menguras energi dan semangat saya." },
-    { id: 15, level: "social", text: "Komunikasi terbuka dan rasa saling peduli antar-anggota tim adalah faktor kunci kenyamanan saya berkarya." },
-
-    // Level 4: Harga Diri & Pengakuan (16-20)
-    { id: 16, level: "esteem", text: "Apresiasi dan pengakuan atas pencapaian kerja memberikan dorongan moral yang sangat besar bagi saya." },
-    { id: 17, level: "esteem", text: "Saya terdorong untuk membuktikan kemampuan terbaik saya agar diakui kompetensinya oleh orang lain/lingkungan." },
-    { id: 18, level: "esteem", text: "Diberikan kepercayaan memegang tanggung jawab atau posisi penting membuat saya merasa dihargai." },
-    { id: 19, level: "esteem", text: "Mendapatkan reputasi positif dan status yang layak atas kerja keras saya adalah hal yang sangat saya dambakan." },
-    { id: 20, level: "esteem", text: "Kritik yang disampaikan tanpa menghargai usaha saya dapat menurunkan motivasi kerja saya secara drastis." },
-
-    // Level 5: Aktualisasi Diri (21-25)
-    { id: 21, level: "actual", text: "Saya sangat termotivasi ketika diberi ruang dan otonomi penuh untuk mengeksplorasi potensi diri saya secara mandiri." },
-    { id: 22, level: "actual", text: "Menghadapi tantangan baru dan menciptakan karya inovatif jauh lebih memuaskan daripada sekadar bekerja sesuai rutinitas." },
-    { id: 23, level: "actual", text: "Saya terdorong untuk terus belajar dan menguasai keahlian baru demi pertumbuhan kualitas diri pribadi." },
-    { id: 24, level: "actual", text: "Memiliki kebebasan dalam mengambil keputusan kreatif memberikan kepuasan mendalam bagi saya." },
-    { id: 25, level: "actual", text: "Makna dan dampak positif dari apa yang saya kerjakan bagi orang banyak adalah sumber motivasi tertinggi saya." }
-];
-
-const dimensionTitles = [
-    "Level 1: Kebutuhan Fisiologis & Fisik Dasar",
-    "Level 2: Kebutuhan Rasa Aman & Kepastian Sistem",
-    "Level 3: Kebutuhan Sosial & Keterikatan Relasi",
-    "Level 4: Kebutuhan Harga Diri & Pengakuan Kompetensi",
-    "Level 5: Kebutuhan Aktualisasi Diri & Eksplorasi Potensi"
+    { id: 1, text: "Uang adalah satu-satunya cara memotivasi karyawan agar bekerja keras." },
+    { id: 2, text: "Karyawan akan bekerja lebih baik lagi jika atasan selalu mengingatkan bahwa mereka akan kehilangan pekerjaan jika tidak bekerja secara efisien dan menolong perusahaan agar tetap mampu bersaing." },
+    { id: 3, text: "Karyawan akan bekerja lebih baik/buruk tergantung pada lingkungan kerjanya." },
+    { id: 4, text: "Rasa diterima oleh karyawan lain adalah faktor vital dalam memotivasi karyawan." },
+    { id: 5, text: "Penghargaan secara pribadi atas kinerja lebih penting daripada penghargaan dalam bentuk uang." },
+    { id: 6, text: "Menyediakan tunjangan pensiun dan tunjangan kesehatan merupakan langkah yang baik untuk memotivasi karyawan." },
+    { id: 7, text: "Kebanyakan karyawan lebih suka bekerja sendiri dalam menangani proyek yang penuh tantangan." },
+    { id: 8, text: "Kesempatan berpartisipasi dalam bakti sosial yang diadakan oleh perusahaan akan memotivasi karyawan bekerja dengan baik." },
+    { id: 9, text: "Kesempatan berbangga diri atas prestasi yang telah diraih lebih penting bagi kebanyakan karyawan, daripada ucapan selamat dari atasan/rekan kerja." },
+    { id: 10, text: "Umumnya, para karyawan bekerja dengan baik bila mereka diberi kepercayaan." },
+    { id: 11, text: "Hubungan-hubungan yang berkualitas (baik) di dalam kelompok-kelompok kerja informal sangat penting untuk memotivasi karyawan bekerja lebih baik." },
+    { id: 12, text: "Bila pekerjaan mereka diperhatikan dan dihargai oleh atasan, karyawan akan lebih termotivasi." },
+    { id: 13, text: "Kebanyakan karyawan akan menerima kesempatan untuk bekerja sendiri dan membuat keputusan tanpa diawasi." },
+    { id: 14, text: "Jaman sekarang ini, karyawan mau bekerja dengan baik hanya karena mereka senang masih memiliki pekerjaan." },
+    { id: 15, text: "Sekalipun karyawan mencintai pekerjaannya, satu-satunya cara untuk memotivasi berkinerja lebih baik adalah dengan menyediakan peralatan dan mesin yang lebih modern." }
 ];
 
 // STATE
 let currentPage = 0;
-const questionsPerPage = 5;
+const questionsPerPage = 3; // 15 Soal dibagi 5 Tahap (3 Soal per Halaman)
 const totalPages = 5;
 let userAnswers = {};
 let userInfo = { nama: "", posisi: "", whatsapp: "", tanggal: "" };
-let calculatedScores = { physio: 0, safety: 0, social: 0, esteem: 0, actual: 0 };
+let calculatedScores = { fisik: 0, aman: 0, bersama: 0, hargaDiri: 0, aktual: 0 };
 let dominantKey = "";
 let currentReportId = "";
 let chartInstance = null;
@@ -85,7 +58,7 @@ function startAssessment() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// RENDER WIZARD PER 5 SOAL
+// RENDER WIZARD PER 3 SOAL
 function renderQuizPage() {
     const startIdx = currentPage * questionsPerPage;
     const currentQuestions = questions.slice(startIdx, startIdx + questionsPerPage);
@@ -94,7 +67,6 @@ function renderQuizPage() {
     document.getElementById("step-indicator").innerText = `Bagian ${currentPage + 1} / ${totalPages}`;
     document.getElementById("percent-indicator").innerText = `${Math.round(progressPct)}%`;
     document.getElementById("progress-fill").style.width = `${progressPct}%`;
-    document.getElementById("dimension-title").innerText = dimensionTitles[currentPage];
 
     document.getElementById("btn-prev").style.visibility = currentPage === 0 ? "hidden" : "visible";
     document.getElementById("btn-next").innerHTML = currentPage === totalPages - 1 
@@ -103,23 +75,26 @@ function renderQuizPage() {
 
     const container = document.getElementById("quiz-page-container");
     container.innerHTML = currentQuestions.map(q => {
-        const val = userAnswers[q.id] || "";
+        const val = userAnswers[q.id] !== undefined ? userAnswers[q.id] : "";
         return `
             <div class="quiz-item-box">
                 <p class="text-xs sm:text-sm font-semibold text-slate-800 leading-snug"><strong>${q.id}.</strong> ${q.text}</p>
                 <div class="options-pill-group">
-                    ${[5, 4, 3, 2, 1].map(score => {
-                        const labels = { 5: "Sgt Setuju", 4: "Setuju", 3: "Netral", 2: "Tdk Setuju", 1: "Sgt Tdk" };
-                        return `
-                            <div class="pill-option">
-                                <input type="radio" name="q_${q.id}" id="q_${q.id}_${score}" value="${score}" ${val == score ? 'checked' : ''} onchange="userAnswers[${q.id}] = ${score}">
-                                <label for="q_${q.id}_${score}">
-                                    <span class="score-num">${score}</span>
-                                    <span class="score-label">${labels[score]}</span>
-                                </label>
-                            </div>
-                        `;
-                    }).join("")}
+                    ${[
+                        { val: 2, label: "+2 (SS)" },
+                        { val: 1, label: "+1 (S)" },
+                        { val: 0, label: "0 (N)" },
+                        { val: -1, label: "-1 (TS)" },
+                        { val: -2, label: "-2 (STS)" }
+                    ].map(opt => `
+                        <div class="pill-option">
+                            <input type="radio" name="q_${q.id}" id="q_${q.id}_${opt.val}" value="${opt.val}" ${val === opt.val ? 'checked' : ''} onchange="userAnswers[${q.id}] = ${opt.val}">
+                            <label for="q_${q.id}_${opt.val}">
+                                <span class="score-num">${opt.val > 0 ? '+' + opt.val : opt.val}</span>
+                                <span class="score-label">${opt.label}</span>
+                            </label>
+                        </div>
+                    `).join("")}
                 </div>
             </div>
         `;
@@ -131,7 +106,7 @@ function nextQuizPage() {
     const currentQuestions = questions.slice(startIdx, startIdx + questionsPerPage);
 
     for (let q of currentQuestions) {
-        if (!userAnswers[q.id]) {
+        if (userAnswers[q.id] === undefined) {
             alert(`Pernyataan nomor ${q.id} belum dijawab.`);
             return;
         }
@@ -154,15 +129,24 @@ function prevQuizPage() {
     }
 }
 
-// PROSES SKOR & KIRIM KE GOOGLE SPREADSHEET
+// PROSES SKOR SESUAI FORMULA EXCEL
 async function processAndSyncResults() {
-    calculatedScores = { physio: 0, safety: 0, social: 0, esteem: 0, actual: 0 };
-    questions.forEach(q => {
-        calculatedScores[q.level] += userAnswers[q.id];
-    });
+    // 1. Hitung Berdasarkan Pemetaan Excel
+    // Kebutuhan Fisik = 1 + 3 + 15
+    const fisik = (userAnswers[1] || 0) + (userAnswers[3] || 0) + (userAnswers[15] || 0);
+    // Rasa Aman = 2 + 6 + 14
+    const aman = (userAnswers[2] || 0) + (userAnswers[6] || 0) + (userAnswers[14] || 0);
+    // Kebersamaan = 4 + 8 + 11
+    const bersama = (userAnswers[4] || 0) + (userAnswers[8] || 0) + (userAnswers[11] || 0);
+    // Harga Diri = 5 + 10 + 12
+    const hargaDiri = (userAnswers[5] || 0) + (userAnswers[10] || 0) + (userAnswers[12] || 0);
+    // Aktualisasi Diri = 7 + 9 + 13
+    const aktual = (userAnswers[7] || 0) + (userAnswers[9] || 0) + (userAnswers[13] || 0);
 
-    let maxScore = -1;
-    ["physio", "safety", "social", "esteem", "actual"].forEach(key => {
+    calculatedScores = { fisik, aman, bersama, hargaDiri, aktual };
+
+    let maxScore = -999;
+    ["fisik", "aman", "bersama", "hargaDiri", "aktual"].forEach(key => {
         if (calculatedScores[key] > maxScore) {
             maxScore = calculatedScores[key];
             dominantKey = key;
@@ -171,14 +155,14 @@ async function processAndSyncResults() {
 
     currentReportId = `MSL-${Math.floor(100000 + Math.random() * 900000)}`;
 
-    // Set WA Order Button
-    const waMsg = `Halo Mas Ali, saya sudah selesai tes Maslow Need & Motivation.\n\n*Nama:* ${userInfo.nama}\n*ID Registrasi:* ${currentReportId}\n*No. WA:* ${userInfo.whatsapp}\n\nMohon kode aktivasi untuk mengunduh laporan resmi.`;
+    // Set Link Tombol WhatsApp Minta Kode
+    const waMsg = `Halo Mas Ali, saya sudah selesai mengisi Tes Motivasi Maslow.\n\n*Nama:* ${userInfo.nama}\n*ID Registrasi:* ${currentReportId}\n*No. WA:* ${userInfo.whatsapp}\n\nMohon kode aktivasi untuk mengunduh laporan resmi.`;
     const waUrl = `https://wa.me/6285232526003?text=${encodeURIComponent(waMsg)}`;
     
     document.getElementById("wa-admin-btn").href = waUrl;
     document.getElementById("floating-wa").href = waUrl;
 
-    // Tampilkan Layar Paywall
+    // Tampilkan Paywall
     document.getElementById("step-quiz").classList.add("hidden");
     document.getElementById("step-paywall").classList.remove("hidden");
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -190,16 +174,16 @@ async function processAndSyncResults() {
         posisi: userInfo.posisi,
         whatsapp: userInfo.whatsapp,
         tanggal: userInfo.tanggal,
-        fisiologis: calculatedScores.physio,
-        rasaAman: calculatedScores.safety,
-        sosial: calculatedScores.social,
-        hargaDiri: calculatedScores.esteem,
-        aktualisasi: calculatedScores.actual,
+        fisiologis: calculatedScores.fisik,
+        rasaAman: calculatedScores.aman,
+        sosial: calculatedScores.bersama,
+        hargaDiri: calculatedScores.hargaDiri,
+        aktualisasi: calculatedScores.aktual,
         driverUtama: getDriverTitle(dominantKey)
     });
 }
 
-// VALIDASI KODE DUA ARAH (APPS SCRIPT + MASTER FALLBACK)
+// VALIDASI KODE AKTIVASI
 async function validateAccessCode() {
     const inputCode = document.getElementById("input-access-code").value.trim().toUpperCase();
     if (!inputCode) {
@@ -247,7 +231,7 @@ function unlockFinalResult() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// POPULATE KONTEN CANVAS DOKUMEN PDF A4
+// POPULATE CANVAS DOKUMEN A4 SEBELUM EKSPOR PDF
 function renderPDFCanvas() {
     document.getElementById("pdf-nama").innerText = userInfo.nama;
     document.getElementById("pdf-posisi").innerText = userInfo.posisi;
@@ -258,55 +242,50 @@ function renderPDFCanvas() {
     document.getElementById("pdf-dominant-title").innerText = getDriverTitle(dominantKey);
     document.getElementById("pdf-dominant-slogan").innerText = `"${getDriverSlogan(dominantKey)}"`;
 
-    // Table
     const meta = [
-        { key: "physio", name: "1. Kebutuhan Fisiologis" },
-        { key: "safety", name: "2. Rasa Aman & Stabilitas" },
-        { key: "social", name: "3. Sosial & Keterikatan Tim" },
-        { key: "esteem", name: "4. Harga Diri & Pengakuan" },
-        { key: "actual", name: "5. Aktualisasi Diri" }
+        { key: "fisik", name: "Kebutuhan Fisik (Fisiologis)", formula: "1 + 3 + 15" },
+        { key: "aman", name: "Rasa Aman (Safety)", formula: "2 + 6 + 14" },
+        { key: "bersama", name: "Kebersamaan (Sosial)", formula: "4 + 8 + 11" },
+        { key: "hargaDiri", name: "Harga Diri (Esteem)", formula: "5 + 10 + 12" },
+        { key: "aktual", name: "Aktualisasi Diri", formula: "7 + 9 + 13" }
     ];
 
     const tbody = document.getElementById("pdf-score-tbody");
     tbody.innerHTML = meta.map(m => {
         const s = calculatedScores[m.key];
-        const pct = Math.round((s / 25) * 100);
-        let status = "Moderat";
-        if (s >= 21) status = "Sangat Tinggi (Driver)";
-        else if (s >= 16) status = "Tinggi (Prioritas)";
-        else if (s <= 10) status = "Rendah / Terpenuhi";
+        let status = "Rendah";
+        if (s >= 4) status = "Sangat Tinggi (Driver)";
+        else if (s >= 2) status = "Tinggi (Prioritas)";
+        else if (s >= 0) status = "Moderat";
 
         return `
             <tr>
                 <td class="p-1 border border-slate-200 font-semibold">${m.name}</td>
-                <td class="p-1 border border-slate-200 text-center font-bold">${s} / 25</td>
-                <td class="p-1 border border-slate-200 text-center">${pct}%</td>
+                <td class="p-1 border border-slate-200 text-center text-slate-500">${m.formula}</td>
+                <td class="p-1 border border-slate-200 text-center font-bold">${s > 0 ? '+' + s : s}</td>
                 <td class="p-1 border border-slate-200 text-blue-900 font-semibold">${status}</td>
             </tr>
         `;
     }).join("");
 
-    // Radar Chart di Canvas PDF
     renderPDFRadar();
 
-    // Narrative Minimal 5 Kalimat
     document.getElementById("pdf-narrative").innerText = buildFullNarrative(calculatedScores, dominantKey);
 
-    // Actions
     const selfMap = {
-        physio: ["Disiplinkan pola istirahat dan stamina fisik.", "Kelola anggaran operasional pribadi teratur."],
-        safety: ["Mintalah kejelasan SOP dan target pada atasan.", "Susun ceklis mitigasi risiko kerja."],
-        social: ["Aktif membangun komunikasi guyub di tim.", "Ciptakan suasana kerja yang saling mendukung."],
-        esteem: ["Dokumentasikan portofolio prestasi kerja.", "Ambil tanggung jawab strategis yang menantang."],
-        actual: ["Kembangkan keahlian inovatif masa depan.", "Ciptakan karya berdampak luas bagi organisasi."]
+        fisik: ["Disiplinkan pemulihan fisik dan stamina harian.", "Atur manajemen finansial pribadi secara proporsional."],
+        aman: ["Mintalah kejelasan SOP dan indikator tertulis kepada atasan.", "Susun ceklis mitigasi risiko sebelum memulai penugasan."],
+        bersama: ["Aktif membangun komunikasi guyub dalam tim kerja.", "Jalin kolaborasi yang saling mendukung antar-rekan."],
+        hargaDiri: ["Dokumentasikan rekam jejak portofolio prestasi secara rapi.", "Ambil inisiatif penugasan strategis bernilai tambah."],
+        aktual: ["Terus pelajari keterampilan baru yang menantang.", "Ciptakan inovasi karya mandiri yang berdampak luas."]
     };
 
     const leaderMap = {
-        physio: ["Pastikan sarana dan alat kerja layak pakai.", "Jamin hak kompensasi tepat waktu dan adil."],
-        safety: ["Berikan instruksi jelas tanpa aturan mendadak.", "Ciptakan atmosfer stabilitas kerja yang pasti."],
-        social: ["Bangun iklim kerja kekeluargaan yang guyub.", "Cepat tanggap meredam gesekan relasi internal."],
-        esteem: ["Beri apresiasi tulus atas setiap kontribusi.", "Delegasikan wewenang berbobot secara terhormat."],
-        actual: ["Beri otonomi penuh dalam pengambilan solusi.", "Tantang dengan proyek inovasi terobosan baru."]
+        fisik: ["Pastikan kelayakan sarana fasilitas dan alat kerja.", "Jamin skema hak kompensasi tepat waktu dan adil."],
+        aman: ["Berikan instruksi spesifik tanpa kebijakan mendadak.", "Ciptakan kepastian atmosfer kerja dan keberlangsungan posisi."],
+        bersama: ["Bangun iklim kerja kekeluargaan yang inklusif.", "Cepat tanggap meredam gesekan relasi internal."],
+        hargaDiri: ["Beri apresiasi tulus atas setiap capaian nyata.", "Berikan pendelegasian wewenang secara terhormat."],
+        aktual: ["Beri otonomi penuh dalam menentukan metode kerja.", "Tantang dengan penugasan inovatif yang memerlukan kreativitas."]
     };
 
     document.getElementById("pdf-self-actions").innerHTML = selfMap[dominantKey].map(a => `<li>${a}</li>`).join("");
@@ -317,12 +296,15 @@ function renderPDFRadar() {
     const ctx = document.getElementById("pdfRadarCanvas").getContext("2d");
     if (chartInstance) chartInstance.destroy();
 
+    // Normalisasi skala (-6 s/d +6 menjadi 0 s/d 12 untuk grafik radar)
+    const norm = k => calculatedScores[k] + 6;
+
     chartInstance = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ['Fisiologis', 'Aman', 'Sosial', 'Pengakuan', 'Aktualisasi'],
+            labels: ['Fisik', 'Aman', 'Kebersamaan', 'Harga Diri', 'Aktualisasi'],
             datasets: [{
-                data: [calculatedScores.physio, calculatedScores.safety, calculatedScores.social, calculatedScores.esteem, calculatedScores.actual],
+                data: [norm('fisik'), norm('aman'), norm('bersama'), norm('hargaDiri'), norm('aktual')],
                 backgroundColor: 'rgba(30, 58, 138, 0.25)',
                 borderColor: '#1e3a8a',
                 borderWidth: 2,
@@ -335,8 +317,8 @@ function renderPDFRadar() {
             scales: {
                 r: {
                     suggestedMin: 0,
-                    suggestedMax: 25,
-                    ticks: { display: false, stepSize: 5 },
+                    suggestedMax: 12,
+                    ticks: { display: false, stepSize: 3 },
                     pointLabels: { font: { size: 7.5, weight: 'bold' } }
                 }
             },
@@ -351,16 +333,11 @@ async function downloadPDF() {
     btn.disabled = true;
     btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> Membuat Dokumen PDF Resmi...`;
 
-    // 1. Populate data ke canvas target
     renderPDFCanvas();
-
-    // Tunggu render grafik canvas selesai
     await new Promise(r => setTimeout(r, 400));
 
     try {
         const certElement = document.getElementById('pdf-report-canvas');
-        
-        // 2. Render Bitmap Canvas Resolusi Tinggi (Scale 2)
         const canvas = await html2canvas(certElement, { 
             scale: 2, 
             useCORS: true,
@@ -368,7 +345,6 @@ async function downloadPDF() {
             windowWidth: 794
         });
 
-        // 3. Ekspor ke jsPDF Portrait A4 Standar (210mm x 297mm)
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
@@ -388,42 +364,42 @@ async function downloadPDF() {
 // HELPERS
 function getDriverTitle(key) {
     const map = {
-        physio: "Fisiologis & Kesejahteraan Fisik",
-        safety: "Rasa Aman & Kepastian Sistem",
-        social: "Sosial & Keterikatan Relasi Tim",
-        esteem: "Harga Diri & Pengakuan Kompetensi",
-        actual: "Aktualisasi Diri & Eksplorasi Potensi"
+        fisik: "Kebutuhan Fisik (Fisiologis)",
+        aman: "Kebutuhan Rasa Aman & Stabilitas",
+        bersama: "Kebutuhan Kebersamaan & Relasi Sosial",
+        hargaDiri: "Kebutuhan Harga Diri & Pengakuan",
+        aktual: "Kebutuhan Aktualisasi Diri & Otonomi"
     };
     return map[key] || "Motivasi Terpadu";
 }
 
 function getDriverSlogan(key) {
     const map = {
-        physio: "Fokus pada kelayakan fasilitas dasar dan stabilitas materi nyata.",
-        safety: "Fokus pada kejelasan regulasi SOP, minim risiko, dan kepastian karier.",
-        social: "Fokus pada kehangatan kolaborasi, iklim guyub, dan penerimaan tim.",
-        esteem: "Fokus pada apresiasi kompetensi, martabat, dan reputasi profesional.",
-        actual: "Fokus pada otonomi karya, pertumbuhan mandiri, dan dampak luas."
+        fisik: "Fokus utama pada kelayakan sarana fisik dan kompensasi materi nyata.",
+        aman: "Fokus utama pada kepastian aturan SOP, minim risiko, dan stabilitas kerja.",
+        bersama: "Fokus utama pada keharmonisan relasi, iklim guyub, dan penerimaan tim.",
+        hargaDiri: "Fokus utama pada apresiasi prestasi, reputasi, dan martabat profesional.",
+        aktual: "Fokus utama pada kemandirian otonomi, eksplorasi potensi, dan tantangan karya."
     };
     return map[key] || "";
 }
 
 function buildFullNarrative(scores, key) {
-    const k1 = `Berdasarkan profil diagnostik kebutuhan Maslow, dorongan motivasi harian Anda saat ini paling dominan digerakkan oleh pemenuhan ${getDriverTitle(key)}, yang menjadi pusat perhatian mental dan alokasi energi kerja Anda sehari-hari.`;
+    const k1 = `Berdasarkan instrumen diagnostik kebutuhan Maslow, dorongan motivasi kerja Anda saat ini paling dominan dipicu oleh pemenuhan ${getDriverTitle(key)}, yang menjadi pusat orientasi dan energi produktivitas Anda sehari-hari.`;
     
-    let k2 = (scores.physio >= 18 || scores.safety >= 18)
-        ? `Pada fondasi kebutuhan dasar, Anda membutuhkan jaminan stabilitas materi, kejelasan regulasi SOP, serta kepastian lingkungan yang aman sebelum dapat berkarya secara tenang dan fokus.`
-        : `Fondasi kebutuhan dasar dan rasa aman Anda saat ini berada dalam kondisi yang sangat memadai dan stabil, sehingga kecemasan terhadap kelangsungan fisik tidak lagi membebani ritme kerja Anda.`;
+    let k2 = (scores.fisik >= 3 || scores.aman >= 3)
+        ? `Pada aspek fondasi dasar, Anda memerlukan kepastian jaminan kelayakan fasilitas, kejelasan aturan SOP tertulis, serta stabilitas lingkungan kerja sebelum dapat mengerahkan performa secara maksimal.`
+        : `Fondasi kebutuhan dasar dan rasa aman Anda saat ini berada dalam persepsi yang relatif mapan dan terpenuhi, sehingga kekhawatiran terkait sarana fisik tidak mendominasi pikiran Anda.`;
 
-    let k3 = (scores.esteem >= 18 || scores.social >= 18)
-        ? `Dalam dinamika relasi, iklim saling mendukung dalam tim serta apresiasi terhadap kompetensi profesional Anda menjadi katalisator kuat yang melipatgandakan motivasi berkontribusi.`
-        : `Terkait relasi sosial dan pengakuan eksternal, Anda memiliki kemandirian emosional yang tinggi dan tidak bergantung pada pujian orang lain untuk mempertahankan standar produktivitas.`;
+    let k3 = (scores.hargaDiri >= 3 || scores.bersama >= 3)
+        ? `Dalam interaksi lingkungan kerja, iklim saling mendukung dalam tim serta apresiasi tulus terhadap kompetensi profesional Anda menjadi pengungkit motivasi yang sangat signifikan.`
+        : `Terkait hubungan sosial dan penghargaan eksternal, Anda memiliki kemandirian emosional yang baik dan tidak bergantung pada pengakuan orang lain untuk menjaga ritme kerja.`;
 
-    let k4 = (scores.actual >= 18)
-        ? `Pada aspek pertumbuhan personal, Anda memiliki dorongan aktualisasi diri yang sangat besar untuk mengeksplorasi potensi maksimal, memecahkan tantangan baru, serta berkreasi secara otonom.`
-        : `Dorongan eksplorasi aktualisasi diri Anda saat ini berjalan selaras dengan rutinitas terstruktur, di mana Anda lebih memprioritaskan ketuntasan tugas secara presisi dibanding mengambil risiko perubahan.`;
+    let k4 = (scores.aktual >= 3)
+        ? `Pada dorongan aktualisasi diri, Anda memiliki hasrat yang sangat kuat untuk mengambil tanggung jawab mandiri, memecahkan proyek yang menantang, serta berkreasi secara otonom tanpa pengawasan berlebih.`
+        : `Dorongan aktualisasi diri Anda saat ini berjalan seimbang dengan ritme kerja terstruktur, di mana Anda lebih memprioritaskan ketuntasan target dibanding mencari risiko eksperimen baru.`;
 
-    const k5 = `Secara keseluruhan, Anda akan mengeluarkan performa terbaik dan kepuasan kinerja optimal apabila beraktivitas dalam ekosistem yang ${scores.safety >= scores.actual ? 'memberikan kepastian aturan kerja yang transparan dan minim ambiguitas peran' : 'memberikan ruang otonomi berkarya dan memfasilitasi gagasan kreatif berdampak luas'}.`;
+    const k5 = `Secara keseluruhan, Anda akan memberikan kontribusi kinerja paling optimal apabila berada dalam ekosistem kerja yang ${scores.aman >= scores.aktual ? 'menjamin kepastian sistem yang transparan dan minim ambiguitas peran' : 'memberikan kepercayaan otonomi karya dan tantangan pengembangan potensi baru'}.`;
 
     return `${k1} ${k2} ${k3} ${k4} ${k5}`;
 }
