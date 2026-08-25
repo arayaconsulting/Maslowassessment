@@ -218,8 +218,11 @@ function processFinalResults() {
     const waText = encodeURIComponent(`Halo Admin Araya, saya ingin meminta Kode Akses untuk membuka Laporan Asesmen Maslow.\n\n*Nama:* ${respondentData.nama}\n*ID Asesmen:* ${currentTestId}\n*No. WA:* ${respondentData.whatsapp}`);
     const waUrl = `https://wa.me/6285232526003?text=${waText}`;
     
-    document.getElementById("link-minta-kode").href = waUrl;
-    document.getElementById("floating-wa-btn").href = waUrl;
+    const linkMintaKode = document.getElementById("link-minta-kode");
+    if (linkMintaKode) linkMintaKode.href = waUrl;
+    
+    const floatingWa = document.getElementById("floating-wa-btn");
+    if (floatingWa) floatingWa.href = waUrl;
 
     // Populate Table Score
     const tbody = document.getElementById("report-table-body");
@@ -348,8 +351,11 @@ function buildDetailedActions(domKey) {
 // SISTEM PAYWALL & KODE AKSES
 function lockFullReport() {
     document.getElementById("full-report-content").classList.add("locked-content");
-    document.getElementById("btn-download-pdf").disabled = true;
-    document.getElementById("btn-download-pdf").innerHTML = `<i class="fa-solid fa-lock"></i> Laporan Terkunci (Masukkan Kode)`;
+    const btnPdf = document.getElementById("btn-download-pdf");
+    if (btnPdf) {
+        btnPdf.disabled = true;
+        btnPdf.innerHTML = `<i class="fa-solid fa-lock"></i> Laporan Terkunci (Masukkan Kode)`;
+    }
 }
 
 // VALIDASI KODE AKTIVASI DUA ARAH
@@ -403,8 +409,39 @@ function unlockReportSuccess() {
     document.getElementById("lock-banner").style.display = "none";
     
     const btnPdf = document.getElementById("btn-download-pdf");
-    btnPdf.disabled = false;
-    btnPdf.innerHTML = `<i class="fa-solid fa-file-pdf"></i> Unduh / Cetak Laporan PDF Resmi`;
+    if (btnPdf) {
+        btnPdf.disabled = false;
+        btnPdf.innerHTML = `<i class="fa-solid fa-file-pdf"></i> Unduh Laporan PDF Resmi`;
+    }
+}
+
+// FUNGSI UNDUH LANGSUNG PDF (DIRECT DOWNLOAD MENGGUNAKAN HTML2PDF)
+function downloadDirectPDF() {
+    const element = document.getElementById('printable-report');
+    const btnPdf = document.getElementById('btn-download-pdf');
+    const originalText = btnPdf.innerHTML;
+
+    btnPdf.disabled = true;
+    btnPdf.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Menyiapkan Dokumen PDF...`;
+
+    // Konfigurasi Standar Dokumen A4 Rapi
+    const opt = {
+        margin: [4, 4, 4, 4],
+        filename: `Laporan_Maslow_${(respondentData.nama || 'Peserta').replace(/\s+/g, '_')}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save().then(() => {
+        btnPdf.disabled = false;
+        btnPdf.innerHTML = originalText;
+    }).catch(err => {
+        console.error("Gagal membuat file PDF:", err);
+        alert("Gagal mengunduh file PDF secara langsung. Silakan coba lagi.");
+        btnPdf.disabled = false;
+        btnPdf.innerHTML = originalText;
+    });
 }
 
 // RADAR CHART MASLOW
