@@ -5,7 +5,7 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzZnP0s0KngOw
 const MASTER_PASSCODES = ["ARAYA2026", "MASLOW88", "PREMIUM88", "LEADERVIP", "ARAYA55"];
 
 // 25 BUTIR PERNYATAAN TERDISTRIBUSI SILANG (INTERLEAVED SHUFFLE)
-// Mencegah peserta menebak pola dimensi yang diuji
+// Menjaga agar pola dimensi tidak mudah ditebak responden
 const questions = [
     { id: 1, dim: "physio", text: "Saat ini, pemenuhan kebutuhan finansial dan fasilitas fisik dasar adalah faktor utama yang paling memotivasi saya dalam bekerja/beraktivitas." },
     { id: 2, dim: "safety", text: "Kejelasan aturan, pembagian tugas (SOP), dan kepastian jangka panjang membuat saya merasa tenang dalam bekerja." },
@@ -45,7 +45,7 @@ let dominantKey = "";
 let currentReportId = "";
 let chartInstance = null;
 
-// STEP 1: MULAI
+// STEP 1: MULAI DARI FORM DATA DIRI
 function startAssessment() {
     const nama = document.getElementById("nama").value.trim();
     const posisi = document.getElementById("posisi").value.trim() || "Umum / Profesional";
@@ -69,7 +69,7 @@ function startAssessment() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// RENDER WIZARD PER 5 SOAL (LABEL PILIHAN RAMAH PENGGUNA)
+// RENDER WIZARD PER 5 SOAL
 function renderQuizPage() {
     const startIdx = currentPage * questionsPerPage;
     const currentQuestions = questions.slice(startIdx, startIdx + questionsPerPage);
@@ -142,7 +142,7 @@ function prevQuizPage() {
     }
 }
 
-// PROSES SKOR AKUMULASI 5 DIMENSI
+// PROSES SKOR & SINKRONISASI LENGKAP KE GOOGLE SPREADSHEET
 async function processAndSyncResults() {
     calculatedScores = { physio: 0, safety: 0, social: 0, esteem: 0, actual: 0 };
     
@@ -161,25 +161,27 @@ async function processAndSyncResults() {
 
     currentReportId = `MSL-${Math.floor(100000 + Math.random() * 900000)}`;
 
-    // Set Link Tombol WhatsApp Minta Kode
+    // Set Link Tombol WhatsApp Minta Kode Akses
     const waMsg = `Halo Mas Ali, saya sudah selesai mengisi Tes Maslow Need & Motivation.\n\n*Nama:* ${userInfo.nama}\n*ID Registrasi:* ${currentReportId}\n*No. WA:* ${userInfo.whatsapp}\n\nMohon kode aktivasi untuk mengunduh laporan resmi.`;
     const waUrl = `https://wa.me/6285232526003?text=${encodeURIComponent(waMsg)}`;
     
-    document.getElementById("wa-admin-btn").href = waUrl;
-    document.getElementById("floating-wa").href = waUrl;
+    const waBtn = document.getElementById("wa-admin-btn");
+    if (waBtn) waBtn.href = waUrl;
+    
+    const floatingWa = document.getElementById("floating-wa");
+    if (floatingWa) floatingWa.href = waUrl;
 
-    // Tampilkan Paywall
+    // Tampilkan Layar Paywall
     document.getElementById("step-quiz").classList.add("hidden");
     document.getElementById("step-paywall").classList.remove("hidden");
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Sync Data ke Google Spreadsheet
+    // Kirim Data Lengkap ke Google Apps Script (Kolom A s/d K)
     sendDataToSpreadsheet({
         testId: currentReportId,
         nama: userInfo.nama,
         posisi: userInfo.posisi,
         whatsapp: userInfo.whatsapp,
-        tanggal: userInfo.tanggal,
         fisiologis: calculatedScores.physio,
         rasaAman: calculatedScores.safety,
         sosial: calculatedScores.social,
@@ -189,7 +191,7 @@ async function processAndSyncResults() {
     });
 }
 
-// VALIDASI KODE AKTIVASI
+// VALIDASI KODE DUA ARAH (GOOGLE APPS SCRIPT + MASTER PASSCODE)
 async function validateAccessCode() {
     const inputCode = document.getElementById("input-access-code").value.trim().toUpperCase();
     if (!inputCode) {
@@ -219,13 +221,13 @@ async function validateAccessCode() {
             }
         }
     } catch (e) {
-        console.warn("Gagal cek online, memeriksa master passcode...", e);
+        console.warn("Gagal cek online, memeriksa master passcode cadangan...", e);
     }
 
     if (MASTER_PASSCODES.includes(inputCode)) {
         unlockFinalResult();
     } else {
-        alert("Kode aktivasi tidak valid. Silakan hubungi admin via WhatsApp.");
+        alert("Kode aktivasi tidak valid. Silakan hubungi admin via WhatsApp (0852-3252-6003).");
         btn.disabled = false;
         btn.innerHTML = originalText;
     }
@@ -401,14 +403,14 @@ function buildFullNarrative(scores, key) {
 
     let k4 = (scores.actual >= 18)
         ? `Pada aspek pertumbuhan personal, Anda memiliki dorongan aktualisasi diri yang sangat besar untuk mengeksplorasi potensi maksimal, memecahkan tantangan baru, serta berkreasi secara otonom.`
-        : `Dorongan aktualisasi diri Anda saat ini berjalan selaras dengan rutinitas yang terstruktur, di mana Anda lebih memprioritaskan ketuntasan tugas secara presisi dibanding mengambil risiko perubahan.`;
+        : `Dorongan eksplorasi aktualisasi diri Anda saat ini berjalan selaras dengan rutinitas yang terstruktur, di mana Anda lebih memprioritaskan ketuntasan tugas secara presisi dibanding mengambil risiko perubahan.`;
 
     const k5 = `Secara keseluruhan, Anda akan mengeluarkan potensi terbaik dan mencapai kepuasan kinerja optimal apabila beraktivitas dalam ekosistem kerja yang ${scores.safety >= scores.actual ? 'memiliki aturan SOP yang transparan, minim ambiguitas peran, serta menawarkan kepastian masa depan' : 'memberikan kebebasan berinovasi (otonomi), mendukung pembelajaran keahlian baru, dan memfasilitasi gagasan kreatif'}.`;
 
     return `${k1} ${k2} ${k3} ${k4} ${k5}`;
 }
 
-// SYNC DATA SPREADSHEET (NO CORS)
+// SINKRONISASI KE GOOGLE SPREADSHEET (NO CORS)
 function sendDataToSpreadsheet(payload) {
     if (!GOOGLE_SCRIPT_URL) return;
     fetch(GOOGLE_SCRIPT_URL, {
