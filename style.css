@@ -58,10 +58,6 @@ body {
     transform: scale(1.08);
 }
 
-.wa-tooltip {
-    display: none;
-}
-
 /* APP HEADER */
 .app-header {
     background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
@@ -94,7 +90,6 @@ body {
     flex: 1.2;
 }
 
-/* CONTAINER KHUSUS LOGO KANAN AGAR JELAS & MENYALA */
 .brand-right {
     justify-content: flex-end;
     flex: 1;
@@ -107,7 +102,6 @@ body {
     object-fit: contain;
 }
 
-/* LOGO KANAN DIPERBESAR & DIBERI LATAR TERANG AGAR SANGAT KONTRAS */
 .brand-right .brand-logo {
     max-height: 52px;
     background: #ffffff;
@@ -382,33 +376,40 @@ body {
     width: 100%;
 }
 
-/* PAYWALL BANNER */
+/* PAYWALL BANNER DENGAN TOMBOL WA MENONJOL */
 .paywall-banner {
-    background: #f8fafc;
-    border: 1.5px dashed #3b82f6;
+    background: #ffffff;
+    border: 2px solid #3b82f6;
     border-radius: var(--radius-md);
-    padding: 16px;
+    padding: 20px 16px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 14px;
     margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+.paywall-header-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .paywall-icon {
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: var(--accent-blue);
+    flex-shrink: 0;
 }
 
-.paywall-content h3 {
-    font-size: 1.05rem;
+.paywall-header-group h3 {
+    font-size: 1.1rem;
     color: var(--primary-navy);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
-.paywall-content p {
-    font-size: 0.83rem;
+.paywall-header-group p {
+    font-size: 0.85rem;
     color: var(--text-muted);
-    margin-bottom: 10px;
 }
 
 .access-code-group {
@@ -420,29 +421,65 @@ body {
 
 .access-code-group input {
     width: 100%;
-    padding: 10px 12px;
+    padding: 12px 14px;
     border: 1.5px solid #cbd5e1;
-    border-radius: 6px;
-    font-size: 0.9rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
     font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
 }
 
 .btn-unlock {
     background: #10b981;
     color: #fff;
     width: 100%;
+    padding: 12px;
+    font-size: 0.95rem;
 }
 
-.paywall-help {
-    font-size: 0.78rem;
-    margin-top: 6px;
+.btn-unlock:hover {
+    background: #059669;
 }
 
-.paywall-help a {
-    color: #25D366;
-    font-weight: 700;
+/* TOMBOL WA CALL TO ACTION */
+.wa-action-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px dashed #cbd5e1;
+    text-align: center;
+}
+
+.wa-prompt-text {
+    font-size: 0.82rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.btn-wa-order {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #25D366;
+    color: #ffffff;
     text-decoration: none;
+    font-weight: 700;
+    font-size: 0.92rem;
+    padding: 12px 18px;
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.35);
+    transition: all 0.2s ease;
+}
+
+.btn-wa-order:hover {
+    background-color: #1eb954;
+    transform: translateY(-1px);
 }
 
 /* REPORT SHEET */
@@ -627,5 +664,6 @@ body {
     .report-meta-grid { display: grid; grid-template-columns: 1fr 1fr; }
     .access-code-group { flex-direction: row; max-width: 420px; }
     .btn-unlock { width: auto; }
+    .btn-wa-order { max-width: 380px; }
     .post-result-actions { flex-direction: row; }
 }
